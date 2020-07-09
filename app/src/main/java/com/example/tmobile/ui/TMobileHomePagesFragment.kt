@@ -52,7 +52,6 @@ class TMobileHomePagesFragment : Fragment() {
      */
     private fun configureViewModel() {
         viewModel = ViewModelProvider(this).get(TMobileHomePageViewModel::class.java)
-        viewModel.init()
         viewModel.getTMobileHomePageData()
         viewModel.tMobileHomePageData.observe(viewLifecycleOwner, Observer {
             adapter = TMobileHomePageAdapter(it.page.cards,imageLoader)
