@@ -8,14 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmobile.R
 import com.example.tmobile.model.Cards
+import com.example.tmobile.model.ImageDownloaderOptions
+import com.example.tmobile.repository.ImageDownloaderRepository
 
 class TMobileHomePageAdapter(
-    data: List<Cards>
-): RecyclerView.Adapter<TMobileHomePageAdapter.HomePageViewHolder>() {
+    data: List<Cards>,
+    imageLoader: ImageDownloaderRepository
+) : RecyclerView.Adapter<TMobileHomePageAdapter.HomePageViewHolder>() {
 
     private val dataList: List<Cards> = data
+    private val mImageLoader = imageLoader
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomePageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.tmobile_adapter_cell , parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.tmobile_adapter_cell, parent, false)
         return HomePageViewHolder(view)
     }
 
@@ -24,7 +29,7 @@ class TMobileHomePageAdapter(
     }
 
     override fun onBindViewHolder(holder: HomePageViewHolder, position: Int) {
-        holder.bindView(dataList[position])
+        holder.bindView(dataList[position],mImageLoader)
     }
 
     inner class HomePageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,9 +43,21 @@ class TMobileHomePageAdapter(
             }
         }
 
-        fun bindView(item: Cards) {
+        fun bindView(
+            item: Cards,
+            mImageLoader: ImageDownloaderRepository
+        ) {
             itemView.apply {
                 title.text = item.card_type
+                item.card?.image?.url?.let {
+                    mImageLoader.displayImage(
+                        ImageDownloaderOptions(
+                            it
+                        ),
+                        image,
+                        context
+                    )
+                }
             }
         }
     }

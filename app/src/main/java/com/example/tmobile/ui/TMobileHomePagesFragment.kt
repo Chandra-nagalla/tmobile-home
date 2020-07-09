@@ -5,19 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmobile.R
 import com.example.tmobile.adapter.TMobileHomePageAdapter
-import com.example.tmobile.model.TMobileHomePages
+import com.example.tmobile.repository.ImageDownloaderRepository
+import com.example.tmobile.repository.ImageDownloaderRepositoryImpl
 
 class TMobileHomePagesFragment : Fragment() {
 
     private lateinit var viewModel: TMobileHomePageViewModel
-    private var data :TMobileHomePages? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TMobileHomePageAdapter
+    private lateinit var imageLoader: ImageDownloaderRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,12 +41,9 @@ class TMobileHomePagesFragment : Fragment() {
      */
     private fun configureUI(view: View) {
         view.apply {
+            imageLoader = ImageDownloaderRepositoryImpl()
             recyclerView = findViewById(R.id.tmobile_recyclerview)
             recyclerView.layoutManager = LinearLayoutManager(context)
-            data?.page?.apply {
-                adapter = TMobileHomePageAdapter(this.cards)
-                recyclerView.adapter = adapter
-            }
         }
     }
 
@@ -55,6 +54,11 @@ class TMobileHomePagesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(TMobileHomePageViewModel::class.java)
         viewModel.init()
         viewModel.getTMobileHomePageData()
+        viewModel.tMobileHomePageData.observe(viewLifecycleOwner, Observer {
+            adapter = TMobileHomePageAdapter(it.page.cards,imageLoader)
+            recyclerView.adapter = adapter
+
+        })
 
     }
 

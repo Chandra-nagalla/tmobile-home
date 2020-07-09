@@ -1,5 +1,6 @@
 package com.example.tmobile.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 
 class TMobileHomePageViewModel : ViewModel() {
     private lateinit var tMobileHomePageRepository: TMobileHomeRepository
-    var tMobileHomePageData = MutableLiveData<TMobileHomePages>()
+    private var _tMobileHomePageData = MutableLiveData<TMobileHomePages>()
+    val tMobileHomePageData : LiveData<TMobileHomePages> = _tMobileHomePageData
 
 
     fun init() {
@@ -28,7 +30,7 @@ class TMobileHomePageViewModel : ViewModel() {
                 }
                 is ServiceResult.Success -> {
                     val response = result.data as TMobileHomePages
-                    tMobileHomePageData.value = response
+                    _tMobileHomePageData.value = response
                 }
             }
         }
