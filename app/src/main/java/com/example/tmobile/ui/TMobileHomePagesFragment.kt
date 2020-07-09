@@ -13,6 +13,7 @@ import com.example.tmobile.R
 import com.example.tmobile.adapter.TMobileHomePageAdapter
 import com.example.tmobile.repository.ImageDownloaderRepository
 import com.example.tmobile.repository.ImageDownloaderRepositoryImpl
+import com.example.tmobile.repository.TMobileHomeRepositoryImpl
 
 class TMobileHomePagesFragment : Fragment() {
 
@@ -52,6 +53,7 @@ class TMobileHomePagesFragment : Fragment() {
      */
     private fun configureViewModel() {
         viewModel = ViewModelProvider(this).get(TMobileHomePageViewModel::class.java)
+        viewModel.init(TMobileHomeRepositoryImpl())
         viewModel.getTMobileHomePageData()
         viewModel.tMobileHomePageData.observe(viewLifecycleOwner, Observer {
             adapter = TMobileHomePageAdapter(it.page.cards,imageLoader)

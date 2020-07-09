@@ -11,10 +11,13 @@ import com.example.tmobile.service.ServiceResult
 import kotlinx.coroutines.launch
 
 class TMobileHomePageViewModel : ViewModel() {
-    private var tMobileHomePageRepository: TMobileHomeRepository = TMobileHomeRepositoryImpl()
+    private lateinit var tMobileHomePageRepository: TMobileHomeRepository
     private var _tMobileHomePageData = MutableLiveData<TMobileHomePages>()
     val tMobileHomePageData : LiveData<TMobileHomePages> = _tMobileHomePageData
 
+    fun init(tMobileHomeRepository: TMobileHomeRepository) {
+        this.tMobileHomePageRepository = tMobileHomeRepository
+    }
 
     fun getTMobileHomePageData() {
         viewModelScope.launch {
