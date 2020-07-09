@@ -44,7 +44,7 @@ data class Description(
 
 @Parcelize
 data class Font(
-    val size: Int = 0
+    val size: Int
 ) : Parcelable, TMobileBusinessObject()
 
 @Parcelize
@@ -61,8 +61,8 @@ data class Image(
 
 @Parcelize
 data class Size(
-    val height: Int = 0,
-    val width: Int = 0
+    val height: Int,
+    val width: Int
 ) : Parcelable, TMobileBusinessObject()
 
 

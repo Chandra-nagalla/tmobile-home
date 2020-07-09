@@ -41,12 +41,6 @@ class TMobileHomePageAdapter(
         fun bindView(item: Cards) {
             itemView.apply {
                 title.text = item.card_type
-                /*item.card?.image?.url.let {
-                    *//*val builder = Picasso.Builder(context)
-                    builder.downloader(OkHttp3Downloader(context))
-                    builder.build().load(it)
-                        .into(image)*//*
-                }*/
             }
         }
     }

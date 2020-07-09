@@ -24,7 +24,7 @@ class TMobileHomePagesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.t_mobile_home_page_fragment, container, false)
+        return inflater.inflate(R.layout.tmobile_home_page_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
