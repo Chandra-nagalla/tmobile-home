@@ -70,28 +70,30 @@ class TMobileHomePageAdapter(
                     }
                 }
 
-                item.card?.apply {
+                imageView.apply outer@{
+                    item.card?.apply {
 
-                    val newHeight = 1498
+                        val height = 1498
 
-                    val newWidth = 1170
+                        val width = 1170
 
-                    imageView.requestLayout()
+                        requestLayout()
 
-                    imageView.layoutParams.height = newHeight
+                        layoutParams.height = height
 
-                    imageView.layoutParams.width = newWidth
+                        layoutParams.width = width
 
-                    imageView.scaleType = ImageView.ScaleType.FIT_XY
+                        scaleType = ImageView.ScaleType.FIT_XY
 
-                    image?.url?.let {
-                        mImageLoader.displayImage(
-                            ImageDownloaderOptions(
-                                it
-                            ),
-                            imageView,
-                            context
-                        )
+                        image?.url?.let {
+                            mImageLoader.displayImage(
+                                ImageDownloaderOptions(
+                                    it
+                                ),
+                                this@outer,
+                                context
+                            )
+                        }
                     }
                 }
 
