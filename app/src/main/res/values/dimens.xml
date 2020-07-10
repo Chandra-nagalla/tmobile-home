@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="tmobile_margin_large">25dp</dimen>
-    <dimen name="tmobile_margin_small">15dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_25dp">25dp</dimen>
+    <dimen name="margin_50dp">50dp</dimen>
 </resources>

@@ -44,7 +44,7 @@ data class Description(
 
 @Parcelize
 data class Font(
-    val size: Int
+    val size: Float
 ) : Parcelable, TMobileBusinessObject()
 
 @Parcelize

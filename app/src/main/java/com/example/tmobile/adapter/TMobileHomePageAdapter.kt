@@ -1,5 +1,6 @@
 package com.example.tmobile.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.tmobile.R
 import com.example.tmobile.model.Cards
 import com.example.tmobile.model.ImageDownloaderOptions
 import com.example.tmobile.repository.ImageDownloaderRepository
+
 
 class TMobileHomePageAdapter(
     data: List<Cards>,
@@ -29,17 +31,19 @@ class TMobileHomePageAdapter(
     }
 
     override fun onBindViewHolder(holder: HomePageViewHolder, position: Int) {
-        holder.bindView(dataList[position],mImageLoader)
+        holder.bindView(dataList[position], mImageLoader)
     }
 
     inner class HomePageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val image: ImageView
+        private val imageView: ImageView
         private val title: TextView
+        private val description : TextView
 
         init {
             view.apply {
-                image = findViewById(R.id.tmobile_image)
+                imageView = findViewById(R.id.tmobile_image)
                 title = findViewById(R.id.tmobile_image_title)
+                description = findViewById(R.id.tmobile_descripton)
             }
         }
 
@@ -48,16 +52,49 @@ class TMobileHomePageAdapter(
             mImageLoader: ImageDownloaderRepository
         ) {
             itemView.apply {
-                title.text = item.card_type
-                item.card?.image?.url?.let {
-                    mImageLoader.displayImage(
-                        ImageDownloaderOptions(
-                            it
-                        ),
-                        image,
-                        context
-                    )
+
+                title.apply outer@{
+                    item.card?.apply {
+                        text = value ?: title?.value
+                        val textColor = attributes?.text_color ?: title?.attributes?.text_color
+                        setTextColor(Color.parseColor(textColor ?: "#000000"))
+                        textSize = attributes?.font?.size ?: title?.attributes?.font?.size ?: 25f
+                    }
                 }
+                description.apply outer@ {
+                    item.card?.description?.apply {
+                        text = value
+                        val textColor = attributes.text_color
+                        setTextColor(Color.parseColor(textColor ?: "#000000"))
+                        textSize = attributes.font?.size ?: 20f
+                    }
+                }
+
+                item.card?.apply {
+
+                    val newHeight = 1498
+
+                    val newWidth = 1170
+
+                    imageView.requestLayout()
+
+                    imageView.layoutParams.height = newHeight
+
+                    imageView.layoutParams.width = newWidth
+
+                    imageView.scaleType = ImageView.ScaleType.FIT_XY
+
+                    image?.url?.let {
+                        mImageLoader.displayImage(
+                            ImageDownloaderOptions(
+                                it
+                            ),
+                            imageView,
+                            context
+                        )
+                    }
+                }
+
             }
         }
     }
