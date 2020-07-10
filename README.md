@@ -3,23 +3,24 @@
 
 This application has been used below Jetpack components
 
-MVVM
-Live Data
-Navigation components
-Repository
+1. MVVM
+2. Live Data
+3. Navigation components
+4. Repository
+
 Kotlin:
+1. Scope functions
+2. Coroutines
+3. Sealed class
+4. data class
 
-Scope functions
-Higer order functions
-Coroutines
-Sealed class
-data class
 Testing:
+1. Junit
+2. Espresso
+3. Mockk
 
-Junit
-Espresso
-Mockk
 Http:
+1. Retrofit
+2. okHttp
 
-Retrofit
-okHttp
+Image Loader : Picasso
